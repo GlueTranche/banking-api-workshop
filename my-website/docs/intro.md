@@ -2,46 +2,76 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction to Alpentor Bank APIs
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Welcome to the Alpentor Bank API documentation. Our APIs are designed to enable developers to build innovative financial applications with access to banking capabilities.
+
+## Available APIs
+
+Alpentor Bank offers the following key API services:
+
+### Account Information Service (AIS)
+Access account details, balances, and transaction history.
+
+### Payment Initiation Service (PIS)
+Initiate domestic and international payments, check payment status.
+
+### Mortgage API
+Access mortgage products, calculate rates, and track application status.
+
+### OpenWealth Custody Services
+Manage portfolio information, asset details, and custody accounts.
+
+### OpenWealth Order Placement
+Create, monitor, and track orders with full history.
 
 ## Getting Started
 
-Get started by **creating a new site**.
+To begin using our APIs, you'll need to:
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+1. **Register for an API key** - Sign up for a developer account and request credentials
+2. **Explore the documentation** - Read through the API specifications
+3. **Test in the sandbox** - Use our sandbox environment to test your integration
+4. **Go live** - Move to production when you're ready
 
-### What you'll need
+## Authentication
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+All Alpentor Bank APIs use API keys for authentication. Include your API key in the header of each request:
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
+```
+Authorization: Bearer your_api_key_here
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+For sandbox testing, you can use the following test API key:
 
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
+```
+sk_test_alpentor_2025
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+## Base URLs
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+### Sandbox
+```
+https://api-sandbox.alpentor.ch/v1
+```
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+### Production
+```
+https://api.alpentor.ch/v1
+```
+
+## Response Formats
+
+All API responses are in JSON format. Successful responses will have a 2xx status code, while errors will be in the 4xx or 5xx range.
+
+## Next Steps
+
+Check out the specific documentation for each API:
+
+- [Account Information Service](/docs/account-information-service/overview)
+- [Payment Initiation Service](/docs/payment-initiation-service/overview)
+- [Mortgage API](/docs/mortgage-api/overview)
+- [OpenWealth Custody Services](/docs/openwealth-custody/overview)
+- [OpenWealth Order Placement](/docs/openwealth-order/overview)
+
+Or, jump right into testing with our [API Sandbox](/sandbox).
