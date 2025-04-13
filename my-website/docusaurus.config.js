@@ -12,16 +12,15 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://GlueTranchie.github.io',
+  url: 'https://gluetranche.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/banking-api-workshop/',
 
   // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'GlueTranchie', // Your GitHub org/user name.
-  projectName: 'banking-api-workshop', // Your repo name.
-  deploymentBranch: 'gh-pages', // The branch to deploy to
+  organizationName: 'GlueTranche', // Usually your GitHub org/user name.
+  projectName: 'banking-api-workshop', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -42,14 +41,16 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/GlueTranchie/banking-api-workshop/tree/main/',
+            'https://github.com/GlueTranche/banking-api-workshop/tree/main/my-website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/GlueTranchie/banking-api-workshop/tree/main/',
+            'https://github.com/GlueTranche/banking-api-workshop/tree/main/my-website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -74,11 +75,11 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Documentation',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/GlueTranchie/banking-api-workshop',
+            href: 'https://github.com/GlueTranche/banking-api-workshop',
             label: 'GitHub',
             position: 'right',
           },
@@ -91,7 +92,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Getting Started',
                 to: '/docs/intro',
               },
             ],
@@ -100,29 +101,8 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/GlueTranchie/banking-api-workshop',
+                href: 'https://github.com/GlueTranche/banking-api-workshop',
               },
             ],
           },
