@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  version: 5.0.0
+  title: Common Account API
+  description: |
+    This specification defines a simple API to access information about bank accounts. The API is supposed to be used by customers who want
+    to get information about their accounts such as current balance or transactions. This specification uses schema definitions from the
+    Common Data Model v1.2.1.
+  termsOfService: tbd
+  contact:
+    email: info@common-api.ch
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: account.common-api.ch/api/v5
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for authentication
+externalDocs:
+  description: Find out more about SFTI API specifications.
+  url: https://www.common-api.ch
+tags:
+  - name: Accounts
+    description: Account information endpoints
+paths:
+  /accounts:
+    get:
+      tags:
+        - Accounts
+      summary: Get Accounts
+      description: Retrieve a list of all available accounts.
+      operationId: getAccounts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        accountId:
+                          type: string
+                        accountType:
+                          type: string
+                        currency:
+                          type: string
+  /accounts/{accountId}:
+    get:
+      tags:
+        - Accounts
+      summary: Get Account Details
+      description: Retrieve detailed information for a specific account.
+      operationId: getAccountDetails
+      parameters:
+        - name: accountId
+          in: path
+          description: The unique identifier for the account
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                  accountType:
+                    type: string
+                  currency:
+                    type: string

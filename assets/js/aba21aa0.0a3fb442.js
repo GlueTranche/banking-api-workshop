@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbanking_api_workshop=self.webpackChunkbanking_api_workshop||[]).push([[742],{7093:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"default"}')}}]);
