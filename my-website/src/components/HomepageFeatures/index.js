@@ -1,49 +1,69 @@
+import React from 'react';
 import clsx from 'clsx';
-import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Open Banking Standards',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Our APIs are built on open banking standards to ensure compatibility 
+        and interoperability with your existing systems. Integrate with confidence 
+        using industry-standard protocols.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Swiss Quality and Security',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Security is our priority. All APIs are built with the robust security standards 
+        that Swiss banking is known for, including strong authentication and data protection.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Interactive Documentation',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Explore our API capabilities with fully interactive documentation. 
+        Test endpoints directly in your browser and see responses in real-time with 
+        our built-in sandbox environment.
       </>
     ),
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({title, description}) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      <div className="padding-horiz--md">
+        <div className="text--center padding-bottom--md">
+          <div className={styles.featureIcon}>
+            <svg
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className={styles.featureSvg}
+            >
+              <rect width="50" height="50" rx="10" fill="#da291c" fillOpacity="0.1" />
+              <path
+                d="M25 15C19.477 15 15 19.477 15 25C15 30.523 19.477 35 25 35C30.523 35 35 30.523 35 25C35 19.477 30.523 15 25 15ZM25 32.5C20.8581 32.5 17.5 29.1419 17.5 25C17.5 20.8581 20.8581 17.5 25 17.5C29.1419 17.5 32.5 20.8581 32.5 25C32.5 29.1419 29.1419 32.5 25 32.5Z"
+                fill="#da291c"
+              />
+              <path
+                d="M26.25 20H23.75V26.25H30V23.75H26.25V20Z"
+                fill="#da291c"
+              />
+            </svg>
+          </div>
+        </div>
+        <div className="text--center">
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
       </div>
     </div>
   );
