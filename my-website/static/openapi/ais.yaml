@@ -1,0 +1,528 @@
+openapi: 3.0.3
+info:
+  title: Alpentor Bank - Account Information Service API
+  description: |
+    The Account Information Service (AIS) API provides secure access to account data, enabling applications to retrieve account details, balances, and transaction history.
+  version: 1.0.0
+  contact:
+    name: Alpentor Bank API Support
+    email: api-support@alpentor.ch
+    url: https://developer.alpentor.ch/support
+  license:
+    name: Alpentor Bank API License
+    url: https://developer.alpentor.ch/license
+servers:
+  - url: https://api-sandbox.alpentor.ch/v1
+    description: Sandbox Environment
+  - url: https://api.alpentor.ch/v1
+    description: Production Environment
+tags:
+  - name: Accounts
+    description: Account information endpoints
+  - name: Balances
+    description: Account balance endpoints
+  - name: Transactions
+    description: Transaction history endpoints
+paths:
+  /accounts:
+    get:
+      tags:
+        - Accounts
+      summary: Get Accounts
+      description: Retrieve a list of all available accounts.
+      operationId: getAccounts
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}:
+    get:
+      tags:
+        - Accounts
+      summary: Get Account Details
+      description: Retrieve detailed information for a specific account.
+      operationId: getAccountDetails
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The unique identifier for the account
+          required: true
+          schema:
+            type: string
+          example: CH93-0000-0000-0000-0000-0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/balances:
+    get:
+      tags:
+        - Balances
+      summary: Get Account Balances
+      description: Retrieve balance information for a specific account.
+      operationId: getAccountBalances
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The unique identifier for the account
+          required: true
+          schema:
+            type: string
+          example: CH93-0000-0000-0000-0000-0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalances'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/transactions:
+    get:
+      tags:
+        - Transactions
+      summary: Get Transactions
+      description: Retrieve transaction history for a specific account.
+      operationId: getTransactions
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: accountId
+          in: path
+          description: The unique identifier for the account
+          required: true
+          schema:
+            type: string
+          example: CH93-0000-0000-0000-0000-0
+        - name: dateFrom
+          in: query
+          description: Start date for transaction history (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+          example: "2025-01-01"
+        - name: dateTo
+          in: query
+          description: End date for transaction history (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+          example: "2025-04-13"
+        - name: limit
+          in: query
+          description: Maximum number of transactions to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+          example: 10
+        - name: offset
+          in: query
+          description: Number of transactions to skip for pagination
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          example: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API key authentication. Format 'Bearer {apiKey}'
+  schemas:
+    AccountList:
+      type: object
+      required:
+        - accounts
+      properties:
+        accounts:
+          type: array
+          description: List of accounts
+          items:
+            $ref: '#/components/schemas/AccountSummary'
+    AccountSummary:
+      type: object
+      required:
+        - accountId
+        - accountType
+        - currency
+        - status
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier for the account
+          example: CH93-0000-0000-0000-0000-0
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+            - Current
+            - Savings
+            - Investment
+            - Loan
+            - Mortgage
+            - Credit
+          example: Current
+        currency:
+          type: string
+          description: Currency code (ISO 4217)
+          example: CHF
+        description:
+          type: string
+          description: Account description
+          example: Personal Account
+        status:
+          type: string
+          description: Account status
+          enum:
+            - active
+            - inactive
+            - blocked
+          example: active
+    AccountDetails:
+      type: object
+      required:
+        - accountId
+        - accountType
+        - currency
+        - status
+        - openingDate
+        - ownerName
+        - ownerType
+        - balances
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier for the account
+          example: CH93-0000-0000-0000-0000-0
+        accountType:
+          type: string
+          description: Type of account
+          enum:
+            - Current
+            - Savings
+            - Investment
+            - Loan
+            - Mortgage
+            - Credit
+          example: Current
+        currency:
+          type: string
+          description: Currency code (ISO 4217)
+          example: CHF
+        description:
+          type: string
+          description: Account description
+          example: Personal Account
+        status:
+          type: string
+          description: Account status
+          enum:
+            - active
+            - inactive
+            - blocked
+          example: active
+        openingDate:
+          type: string
+          format: date
+          description: Date when the account was opened
+          example: "2020-01-15"
+        ownerName:
+          type: string
+          description: Name of the account owner
+          example: Max Mustermann
+        ownerType:
+          type: string
+          description: Type of account owner
+          enum:
+            - personal
+            - business
+          example: personal
+        balances:
+          type: object
+          properties:
+            current:
+              $ref: '#/components/schemas/Amount'
+            available:
+              $ref: '#/components/schemas/Amount'
+        flags:
+          type: object
+          properties:
+            blocked:
+              type: boolean
+              description: Whether the account is blocked
+              example: false
+            overdraftAllowed:
+              type: boolean
+              description: Whether overdraft is allowed
+              example: true
+    AccountBalances:
+      type: object
+      required:
+        - accountId
+        - balances
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier for the account
+          example: CH93-0000-0000-0000-0000-0
+        balances:
+          type: array
+          description: List of balances
+          items:
+            $ref: '#/components/schemas/Balance'
+    Balance:
+      type: object
+      required:
+        - type
+        - amount
+        - currency
+        - referenceDate
+      properties:
+        type:
+          type: string
+          description: Type of balance
+          enum:
+            - current
+            - available
+            - creditLine
+            - expected
+            - forward
+            - interimAvailable
+            - interimBooked
+            - openingBooked
+            - previouslyClosedBooked
+          example: current
+        amount:
+          type: string
+          description: Balance amount
+          example: "5250.00"
+        currency:
+          type: string
+          description: Currency code (ISO 4217)
+          example: CHF
+        referenceDate:
+          type: string
+          format: date-time
+          description: Reference date and time for the balance
+          example: "2025-04-13T10:30:00Z"
+    TransactionList:
+      type: object
+      required:
+        - accountId
+        - transactions
+        - page
+        - totalTransactions
+        - totalPages
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier for the account
+          example: CH93-0000-0000-0000-0000-0
+        transactions:
+          type: array
+          description: List of transactions
+          items:
+            $ref: '#/components/schemas/Transaction'
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        totalTransactions:
+          type: integer
+          description: Total number of transactions matching the query
+          example: 156
+        totalPages:
+          type: integer
+          description: Total number of pages
+          example: 16
+    Transaction:
+      type: object
+      required:
+        - transactionId
+        - bookingDate
+        - amount
+      properties:
+        transactionId:
+          type: string
+          description: Unique identifier for the transaction
+          example: tx-2025-04-10-001
+        bookingDate:
+          type: string
+          format: date
+          description: Date when the transaction was booked
+          example: "2025-04-10"
+        valueDate:
+          type: string
+          format: date
+          description: Date when the transaction value was applied
+          example: "2025-04-10"
+        amount:
+          $ref: '#/components/schemas/Amount'
+        creditorName:
+          type: string
+          description: Name of the creditor
+          example: Swiss Supermarket
+        debtorName:
+          type: string
+          description: Name of the debtor
+          example: Max Mustermann
+        remittanceInformation:
+          type: string
+          description: Transaction description or reference
+          example: Weekly groceries
+        transactionType:
+          type: string
+          description: Type of transaction
+          example: PAYMENT
+    Amount:
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          description: Amount value as a string to preserve precision
+          example: "5250.00"
+        currency:
+          type: string
+          description: Currency code (ISO 4217)
+          example: CHF
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Error code
+          example: RESOURCE_NOT_FOUND
+        message:
+          type: string
+          description: Error message
+          example: The requested resource was not found
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field related to the error
+                example: accountId
+              message:
+                type: string
+                description: Specific message for the field
+                example: Account ID not found
+  responses:
+    Unauthorized:
+      description: Authentication information is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: UNAUTHORIZED
+            message: Authentication failed
+    Forbidden:
+      description: Not authorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: FORBIDDEN
+            message: Not authorized to access this resource
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: RESOURCE_NOT_FOUND
+            message: The requested resource was not found
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: RATE_LIMIT_EXCEEDED
+            message: Rate limit exceeded, try again later
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: INTERNAL_SERVER_ERROR
+            message: An unexpected error occurred
