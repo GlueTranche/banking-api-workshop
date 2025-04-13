@@ -6,7 +6,7 @@ const config = {
   title: 'Alpentor Bank API Portal',
   tagline: 'Open Finance Solutions for Modern Banking',
   url: 'https://gluetranche.github.io',
-  baseUrl: '/',
+  baseUrl: '/banking-api-workshop/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
