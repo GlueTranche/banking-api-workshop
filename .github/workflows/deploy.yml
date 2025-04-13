@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    # Review gh actions docs if you want to further define triggers, paths, etc
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
 permissions:
   contents: write
@@ -12,27 +14,31 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./my-website
     steps:
       - uses: actions/checkout@v3
-      
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: npm
-          cache-dependency-path: my-website/package-lock.json  # Specify the path to package-lock.json
+          cache-dependency-path: ./my-website/package-lock.json
 
       - name: Install dependencies
-        working-directory: ./my-website  # Set working directory for this step
         run: npm ci
-
+      
       - name: Build website
-        working-directory: ./my-website  # Set working directory for this step
         run: npm run build
 
+      # Popular action to deploy to GitHub Pages:
+      # Docs: https://github.com/peaceiris/actions-gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./my-website/build  # Specify the build output directory
+          # Build output to publish to the `gh-pages` branch:
+          publish_dir: ./my-website/build
+          # Assign commit authorship to the official GH-Actions bot
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
