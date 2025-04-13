@@ -1,53 +1,60 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+import React from 'react';
+import clsx from 'clsx';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background-color: #f8f9fa;
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #eef2f6 100%);
+import styles from './index.module.css';
+
+function HomepageHeader() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        <h1 className="hero__title">{siteConfig.title}</h1>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/intro">
+            Get Started with APIs
+          </Link>
+          <Link
+            className={clsx("button button--outline button--secondary button--lg", styles.secondaryButton)}
+            to="/docs/sandbox">
+            Try the API Sandbox
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-
-.secondaryButton {
-  margin-left: 12px;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-.featureSvg {
-  height: 200px;
-  width: 200px;
-}
-
-.apiFeatureCard {
-  height: 100%;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.apiFeatureCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+export default function Home() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <Layout
+      title={`${siteConfig.title}`}
+      description="Alpentor Bank API Portal - Open Finance Solutions for Modern Banking">
+      <HomepageHeader />
+      <main>
+        <div className="container margin-top--lg">
+          <div className="row">
+            <div className="col col--8 col--offset-2">
+              <div className="margin-bottom--lg text--center">
+                <h2>Alpentor Bank Open API Platform</h2>
+                <p>
+                  Welcome to the Alpentor Bank API Portal. Our comprehensive suite of banking APIs 
+                  enables you to build innovative financial applications and services that meet the 
+                  evolving needs of your customers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <HomepageFeatures />
+      </main>
+    </Layout>
+  );
 }

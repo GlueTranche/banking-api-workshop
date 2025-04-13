@@ -1,0 +1,132 @@
+---
+id: get-accounts
+title: "Get Accounts"
+description: "Retrieve list of authorized accounts"
+sidebar_label: "Get Accounts"
+hide_title: true
+hide_table_of_contents: true
+---
+
+# Get Accounts
+
+<div className="api-method get">
+  <div className="api-method__header">
+    <span className="api-method__verb">GET</span>
+    <span className="api-method__path">/accounts</span>
+  </div>
+</div>
+
+Return the list of all accounts accessible for the logged in user.
+
+## Parameters
+
+| Name | In | Type | Required | Description |
+|------|----|------|----------|-------------|
+| cursor | query | string | false | Optional parameter for pagination. Use the ID of the last item from the previous response to retrieve the next set of results. |
+| limit | query | integer | false | Optional parameter for pagination, specifying the number of items to return. The actual maximum limit can be defined by the provider. |
+| Authorization | header | string | true | Bearer followed by a base64 encoded OAuth access token. |
+| X-CorAPI-Client-ID | header | string | true | ID of the client forwarded to the provider (SCOPE: FI). |
+| X-Correlation-ID | header | string | true | Unique ID (defined by the caller) which will be reflected back in the response. |
+| User-Agent | header | string | true | Name and version of the of the Client software. |
+| X-CorAPI-Target-ID | header | string | false | ID of the target, e.g., a financial institution (SCOPE: FI - optional). |
+| X-PSU-IP-Address | header | string | false | IP address of the user initiating the operation (SCOPE: FI - optional). |
+| X-PSU-User-Agent | header | string | false | User of the client software (SCOPE: FI - optional). |
+
+## Response
+
+### 200 OK
+
+Returns a paginated list of all accounts.
+
+```json
+{
+  "accounts": [
+    {
+      "account": {
+        "identification": "CH93 0076 2011 6238 5295 7",
+        "type": "IBAN"
+      },
+      "accountOwner": "Max Muster",
+      "accountTypeCode": "CACC",
+      "currency": "CHF",
+      "designation": "Private Account",
+      "id": "CH93-0000-0000-1234",
+      "_links": {
+        "self": "/accounts/CH93-0000-0000-1234",
+        "balance": "/accounts/CH93-0000-0000-1234/balance",
+        "transactions": "/accounts/CH93-0000-0000-1234/transactions"
+      },
+      "allowedCurrencies": ["CHF", "EUR", "USD"]
+    },
+    {
+      "account": {
+        "identification": "CH93 0076 2011 6238 5295 8",
+        "type": "IBAN"
+      },
+      "accountOwner": "Max Muster",
+      "accountTypeCode": "SVNG",
+      "currency": "CHF",
+      "designation": "Savings Account",
+      "id": "CH93-0000-0000-1235",
+      "_links": {
+        "self": "/accounts/CH93-0000-0000-1235",
+        "balance": "/accounts/CH93-0000-0000-1235/balance",
+        "transactions": "/accounts/CH93-0000-0000-1235/transactions"
+      },
+      "allowedCurrencies": ["CHF"]
+    },
+    {
+      "account": {
+        "identification": "CH93 0076 2011 6238 5295 9",
+        "type": "IBAN"
+      },
+      "accountOwner": "Max Muster",
+      "accountTypeCode": "CARD",
+      "currency": "CHF",
+      "designation": "Credit Card Account",
+      "id": "CH93-0000-0000-1236",
+      "_links": {
+        "self": "/accounts/CH93-0000-0000-1236",
+        "balance": "/accounts/CH93-0000-0000-1236/balance",
+        "transactions": "/accounts/CH93-0000-0000-1236/transactions"
+      },
+      "allowedCurrencies": ["CHF", "EUR", "USD"]
+    }
+  ]
+}
+```
+
+### 400 Bad Request
+
+The format of the request was invalid.
+
+### 401 Unauthorized
+
+The request has not been applied because it provides no valid authentication credentials for the target resource.
+
+### 403 Forbidden
+
+A valid OAuth Token was received, but access was denied.
+
+### 404 Not Found
+
+Either the endpoint does not exist or a requested resource is not yet available.
+
+### 405 Method Not Allowed
+
+The method received in the request-line is known by the origin server but not supported by the target resource.
+
+### 500 Internal Server Error
+
+The server encountered an unexpected condition that prevented it from fulfilling the request.
+
+### 501 Not Implemented
+
+The server does not support the functionality required to fulfill the request.
+
+### 503 Service Unavailable
+
+The server is currently unable to handle the request due to a temporary overload or scheduled maintenance.
+
+
+      

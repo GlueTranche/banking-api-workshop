@@ -13,35 +13,80 @@
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  // By default, Docusaurus generates a sidebar from the docs folder structure
-  tutorialSidebar: [
+  docs: [
     {
-      type: 'doc',
-      id: 'intro',
-      label: 'Introduction',
+      type: "doc",
+      id: "intro",
     },
     {
-      type: 'category',
-      label: 'Account Information Service',
-      link: {
-        type: 'doc',
-        id: 'account-information-service/overview',
-      },
+      type: "doc",
+      id: "sandbox",
+    },
+    {
+      type: "category",
+      label: "Account Information Service",
       items: [
-        'account-information-service/overview',
         {
-          type: 'category',
-          label: 'API Reference',
+          type: "doc",
+          id: "account-information-service/overview",
+        },
+        {
+          type: "doc",
+          id: "account-information-service/api-reference",
+        },
+        {
+          type: "category",
+          label: "API Endpoints",
           link: {
-            type: 'generated-index',
-            title: 'Account Information Service API Reference',
-            description: 'Detailed API specifications for the Account Information Service',
+            type: "doc",
+            id: "account-information-service/api/accounts"
           },
           items: [
-            'account-information-service/api/get-accounts',
-            'account-information-service/api/get-account-details',
-            'account-information-service/api/get-account-balances',
-            'account-information-service/api/get-transactions',
+            {
+              type: "doc",
+              id: "account-information-service/api/get-accounts",
+              label: "Get Accounts"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-details",
+              label: "Get Account Details"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-balance",
+              label: "Get Account Balance"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-transactions",
+              label: "Get Account Transactions"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-transaction-details",
+              label: "Get Transaction Details"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-standing-orders",
+              label: "Get Account Standing Orders"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-direct-debits",
+              label: "Get Account Direct Debits"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-scheduled-payments",
+              label: "Get Account Scheduled Payments"
+            },
+            {
+              type: "doc",
+              id: "account-information-service/api/get-account-beneficiaries",
+              label: "Get Account Beneficiaries"
+            }
           ],
         },
       ],

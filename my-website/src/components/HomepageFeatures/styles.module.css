@@ -3,17 +3,5 @@
   align-items: center;
   padding: 2rem 0;
   width: 100%;
-  background-color: var(--ifm-color-secondary);
-}
-
-.featureIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80px;
-}
-
-.featureSvg {
-  height: 60px;
-  width: 60px;
+  background-color: #f8f5f2;
 }

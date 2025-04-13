@@ -1,0 +1,190 @@
+---
+id: get-transaction-details
+title: "Get Transaction Details"
+description: "Details of the specified transaction"
+sidebar_label: "Get Transaction Details"
+hide_title: true
+hide_table_of_contents: true
+---
+
+# Get Transaction Details
+
+<div className="api-method get">
+  <div className="api-method__header">
+    <span className="api-method__verb">GET</span>
+    <span className="api-method__path">/accounts/\{accountId\}/transactions/\{entryId\}</span>
+  </div>
+</div>
+
+Retrieves the details of the specified transaction.
+
+## Path Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| accountId | string | true | ID of the account. |
+| entryId | string | true | ID of the transaction entry. |
+
+## Headers
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| Authorization | string | true | Bearer followed by a base64 encoded OAuth access token. |
+| X-CorAPI-Client-ID | string | true | ID of the client forwarded to the provider (SCOPE: FI). |
+| X-Correlation-ID | string | true | Unique ID (defined by the caller) which will be reflected back in the response. |
+| User-Agent | string | true | Name and version of the of the Client software. |
+| X-CorAPI-Target-ID | string | false | ID of the target, e.g., a financial institution (SCOPE: FI - optional). |
+| X-PSU-IP-Address | string | false | IP address of the user initiating the operation (SCOPE: FI - optional). |
+| X-PSU-User-Agent | string | false | User of the client software (SCOPE: FI - optional). |
+
+## Response
+
+### 200 OK
+
+Returns the details of the specified transaction.
+
+```json
+{
+  "accountServicerReference": "string",
+  "additionalEntryInformation": "string",
+  "amount": {
+    "amount": "string",
+    "currency": "string"
+  },
+  "bankTransactionCode": {
+    "domainCode": "string",
+    "familyCode": "string",
+    "subFamilyCode": "string"
+  },
+  "bookingDate": "string",
+  "entryId": "string",
+  "entryStatus": "string",
+  "transactionType": "string",
+  "valueDate": "string",
+  "entryReference": "string",
+  "entryReferenceInternalId": "string",
+  "instructedAmount": {
+    "amount": "string",
+    "sourceCurrency": "string",
+    "targetCurrency": "string",
+    "exchangeIndicator": "string",
+    "exchangeRate": "string"
+  },
+  "reversalIndicator": true,
+  "totalChargesAmount": {
+    "amount": "string",
+    "currency": "string",
+    "chargeRecords": [
+      {
+        "amount": "string",
+        "chargesIncludedIndicator": true,
+        "currency": "string",
+        "type": "string"
+      }
+    ]
+  },
+  "transactions": [
+    {
+      "accountServicerReference": "string",
+      "amount": {
+        "amount": "string",
+        "currency": "string"
+      },
+      "transactionId": "string",
+      "transactionType": "string",
+      "additionalTransactionInformation": "string",
+      "bankTransactionCode": {
+        "domainCode": "string",
+        "familyCode": "string",
+        "subFamilyCode": "string"
+      },
+      "counterparty": {
+        "account": {
+          "identification": "string",
+          "type": "string"
+        },
+        "agent": {
+          "bic": "string",
+          "clearingSystemMemberIdentification": {
+            "code": "string",
+            "memberId": "string"
+          }
+        },
+        "name": "string",
+        "postalAddress": {
+          "structured": {
+            "postCode": "string",
+            "streetName": "string",
+            "townName": "string",
+            "buildingNumber": "string",
+            "country": "string"
+          },
+          "unstructured": {
+            "addressLines": ["string"],
+            "country": "string"
+          }
+        }
+      },
+      "endToEndId": "string",
+      "instructedAmount": {
+        "amount": "string",
+        "sourceCurrency": "string",
+        "targetCurrency": "string",
+        "exchangeIndicator": "string",
+        "exchangeRate": "string"
+      },
+      "instructionId": "string",
+      "remittanceInformation": "string",
+      "remittanceReference": {
+        "reference": "string",
+        "type": "string"
+      },
+      "totalChargesAmount": {
+        "amount": "string",
+        "currency": "string",
+        "chargeRecords": [
+          {
+            "amount": "string",
+            "chargesIncludedIndicator": true,
+            "currency": "string",
+            "type": "string"
+          }
+        ]
+      },
+      "uetr": "string"
+    }
+  ]
+}
+```
+
+### 400 Bad Request
+
+The format of the request was invalid.
+
+### 401 Unauthorized
+
+The request has not been applied because it provides no valid authentication credentials for the target resource.
+
+### 403 Forbidden
+
+A valid OAuth Token was received, but access was denied.
+
+### 404 Not Found
+
+Either the endpoint does not exist or a requested resource is not yet available.
+
+### 405 Method Not Allowed
+
+The method received in the request-line is known by the origin server but not supported by the target resource.
+
+### 500 Internal Server Error
+
+The server encountered an unexpected condition that prevented it from fulfilling the request.
+
+### 501 Not Implemented
+
+The server does not support the functionality required to fulfill the request.
+
+### 503 Service Unavailable
+
+The server is currently unable to handle the request due to a temporary overload or scheduled maintenance. 

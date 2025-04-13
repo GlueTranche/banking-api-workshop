@@ -1,0 +1,126 @@
+---
+id: get-account-balance
+title: "Get Account Balance"
+description: "Retrieve balance for a specific account"
+sidebar_label: "Get Account Balance"
+hide_title: true
+hide_table_of_contents: true
+---
+
+# Get Account Balance
+
+<div className="api-method get">
+  <div className="api-method__header">
+    <span className="api-method__verb">GET</span>
+    <span className="api-method__path">/accounts/\{accountId\}/balance</span>
+  </div>
+</div>
+
+Returns the balance of the specified account.
+
+## Path Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| accountId | string | true | ID of the account. |
+
+## Query Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| date | string | false | The date to query, formatted as yyyy-mm-dd. Default value: current date. |
+
+## Headers
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| Authorization | string | true | Bearer followed by a base64 encoded OAuth access token. |
+| X-CorAPI-Client-ID | string | true | ID of the client forwarded to the provider (SCOPE: FI). |
+| X-Correlation-ID | string | true | Unique ID (defined by the caller) which will be reflected back in the response. |
+| User-Agent | string | true | Name and version of the of the Client software. |
+| X-CorAPI-Target-ID | string | false | ID of the target, e.g., a financial institution (SCOPE: FI - optional). |
+| X-PSU-IP-Address | string | false | IP address of the user initiating the operation (SCOPE: FI - optional). |
+| X-PSU-User-Agent | string | false | User of the client software (SCOPE: FI - optional). |
+
+## Response
+
+### 200 OK
+
+Returns the balance of the specified account.
+
+```json
+{
+  "balances": [
+    {
+      "balanceAmount": {
+        "amount": "12458.90",
+        "currency": "CHF"
+      },
+      "balanceType": "interimAvailable",
+      "creditLimitIncluded": true,
+      "lastChangeDateTime": "2024-03-19T10:30:00+01:00",
+      "referenceDate": "2024-03-19"
+    },
+    {
+      "balanceAmount": {
+        "amount": "12358.90",
+        "currency": "CHF"
+      },
+      "balanceType": "closingBooked",
+      "creditLimitIncluded": true,
+      "lastChangeDateTime": "2024-03-18T23:59:59+01:00",
+      "referenceDate": "2024-03-18"
+    },
+    {
+      "balanceAmount": {
+        "amount": "1000.00",
+        "currency": "CHF"
+      },
+      "balanceType": "creditLine",
+      "creditLimitIncluded": false,
+      "lastChangeDateTime": "2024-01-01T00:00:00+01:00",
+      "referenceDate": "2024-03-19"
+    }
+  ]
+}
+```
+
+### 202 Accepted
+
+Valid request, requested data not available yet. The request may be attempted at a later time.
+
+### 204 No Content
+
+The server has successfully fulfilled the request. There is no content to return and never will be.
+
+### 400 Bad Request
+
+The format of the request was invalid.
+
+### 401 Unauthorized
+
+The request has not been applied because it provides no valid authentication credentials for the target resource.
+
+### 403 Forbidden
+
+A valid OAuth Token was received, but access was denied.
+
+### 404 Not Found
+
+Either the endpoint does not exist or a requested resource is not yet available.
+
+### 405 Method Not Allowed
+
+The method received in the request-line is known by the origin server but not supported by the target resource.
+
+### 500 Internal Server Error
+
+The server encountered an unexpected condition that prevented it from fulfilling the request.
+
+### 501 Not Implemented
+
+The server does not support the functionality required to fulfill the request.
+
+### 503 Service Unavailable
+
+The server is currently unable to handle the request due to a temporary overload or scheduled maintenance. 

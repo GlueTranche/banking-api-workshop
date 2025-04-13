@@ -29,23 +29,23 @@ Create, monitor, and track orders with full history.
 
 To begin using our APIs, you'll need to:
 
-1. **Register for an API key** - Sign up for a developer account and request credentials
+1. **Get your API Key** - Sign up for a developer account to receive your API key
 2. **Explore the documentation** - Read through the API specifications
 3. **Test in the sandbox** - Use our sandbox environment to test your integration
 4. **Go live** - Move to production when you're ready
 
 ## Authentication
 
-All Alpentor Bank APIs use API keys for authentication. Include your API key in the header of each request:
+All Alpentor Bank APIs use API Key authentication. Include your API key in the header of each request:
 
 ```
-Authorization: Bearer your_api_key_here
+X-API-Key: your_api_key_here
 ```
 
 For sandbox testing, you can use the following test API key:
 
 ```
-sk_test_alpentor_2025
+test_alpentor_2025_key
 ```
 
 ## Base URLs
@@ -60,18 +60,8 @@ https://api-sandbox.alpentor.ch/v1
 https://api.alpentor.ch/v1
 ```
 
-## Response Formats
-
-All API responses are in JSON format. Successful responses will have a 2xx status code, while errors will be in the 4xx or 5xx range.
-
 ## Next Steps
 
 Check out the specific documentation for each API:
 
-- [Account Information Service](/docs/account-information-service/overview)
-- [Payment Initiation Service](/docs/payment-initiation-service/overview)
-- [Mortgage API](/docs/mortgage-api/overview)
-- [OpenWealth Custody Services](/docs/openwealth-custody/overview)
-- [OpenWealth Order Placement](/docs/openwealth-order/overview)
-
-Or, jump right into testing with our [API Sandbox](/sandbox).
+- [Account Information Service](/docs/account-information-service/api-reference)

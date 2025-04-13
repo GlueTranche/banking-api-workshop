@@ -1,0 +1,84 @@
+---
+id: common-account-api
+title: "Common Account API"
+description: "This specification defines a simple API to access information about bank accounts. The API is supposed to be used by customers who want"
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+
+<span className={"theme-doc-version-badge badge badge--secondary"}>Version: 5.0.0</span>
+
+<h1 className={"openapi__heading"}>Common Account API</h1>
+
+This specification defines a simple API to access information about bank accounts. The API is supposed to be used by customers who want
+to get information about their accounts such as current balance or transactions. This specification uses schema definitions from the
+Common Data Model v1.2.1.
+
+<div style={{"marginBottom":"2rem"}}>
+  <h2 id={"authentication"} style={{"marginBottom":"1rem"}}>Authentication</h2>
+  <SchemaTabs className={"openapi-tabs__security-schemes"}>
+    <TabItem label={"OAuth2"} value={"OAuth2"}>
+      OAuth2 authentication
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Security Scheme Type:</th>
+              <td>oauth2</td>
+            </tr>
+            <tr>
+              <th>Authorization URL:</th>
+              <td>https://example.com/oauth/authorize</td>
+            </tr>
+            <tr>
+              <th>Token URL:</th>
+              <td>https://example.com/oauth/token</td>
+            </tr>
+            <tr>
+              <th>Scopes:</th>
+              <td>
+                <ul>
+                  <li>read: Grants read access</li>
+                  <li>write: Grants write access</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem>
+  </SchemaTabs>
+</div>
+
+<div style={{"display":"flex","flexDirection":"column","marginBottom":"var(--ifm-paragraph-margin-bottom)"}}>
+  <h3 style={{"marginBottom":"0.25rem"}}>Contact</h3>
+  <span><a href={"mailto:info@common-api.ch"}>info@common-api.ch</a></span>
+</div>
+
+<div style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}>
+  <h3 style={{"marginBottom":"0.25rem"}}>Terms of Service</h3>
+  <a href={"tbd"}>tbd</a>
+</div>
+
+<div style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}>
+  <h3 style={{"marginBottom":"0.25rem"}}>License</h3>
+  <a href={"https://www.apache.org/licenses/LICENSE-2.0.html"}>Apache 2.0</a>
+</div>
+
+<div style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}>
+  <h3 style={{"marginBottom":"0.25rem"}}>External Documentation</h3>
+  <a href={"https://www.common-api.ch"}>Find out more about SFTI API specifications</a>
+</div>
+
+<div style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}>
+  <h3 style={{"marginBottom":"0.25rem"}}>Base URL</h3>
+  <span>account.common-api.ch/api/v5</span>
+</div>
+      

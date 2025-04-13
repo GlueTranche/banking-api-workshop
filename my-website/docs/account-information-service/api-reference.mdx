@@ -1,0 +1,104 @@
+---
+id: api-reference
+title: API Reference
+description: Complete API Reference for the Account Information Service
+sidebar_position: 2
+---
+
+# API Reference
+
+This section provides detailed documentation for all available endpoints in the Account Information Service API.
+
+## Authentication
+
+All API requests must be authenticated using OAuth2. The following scopes are available:
+
+- `read`: Grants read access to account information
+- `write`: Grants write access for certain operations
+
+## Base URL
+
+All API endpoints are relative to the base URL:
+
+```
+account.common-api.ch/api/v5
+```
+
+## Common Headers
+
+All requests must include the following headers:
+
+| Header | Description | Required |
+|--------|-------------|----------|
+| Authorization | Bearer token for OAuth2 authentication | Yes |
+| X-CorAPI-Client-ID | ID of the client forwarded to the provider | Yes |
+| X-Correlation-ID | Unique ID for request correlation | Yes |
+| User-Agent | Name and version of the client software | Yes |
+| X-CorAPI-Target-ID | ID of the target financial institution | No |
+| X-PSU-IP-Address | IP address of the user | No |
+| X-PSU-User-Agent | User agent of the client software | No |
+
+## Endpoints
+
+The API provides the following endpoints:
+
+### Account Information
+
+- [Get Accounts](/docs/account-information-service/api/get-accounts) - Retrieve list of authorized accounts
+- [Get Account Details](/docs/account-information-service/api/get-account-details) - Retrieve information about a specific account
+- [Get Account Balance](/docs/account-information-service/api/get-account-balance) - Retrieve account balance information
+- [Get Account Transactions](/docs/account-information-service/api/get-account-transactions) - Retrieve transactions of a specific account
+- [Get Transaction Details](/docs/account-information-service/api/get-transaction-details) - Details of a specific transaction
+
+### Additional Account Services
+
+- [Get Account Standing Orders](/docs/account-information-service/api/get-account-standing-orders) - Retrieve standing orders for an account
+- [Get Account Direct Debits](/docs/account-information-service/api/get-account-direct-debits) - Retrieve direct debits for an account
+- [Get Account Scheduled Payments](/docs/account-information-service/api/get-account-scheduled-payments) - Retrieve scheduled payments for an account
+- [Get Account Beneficiaries](/docs/account-information-service/api/get-account-beneficiaries) - Retrieve beneficiaries for an account
+
+## Response Codes
+
+The API uses standard HTTP response codes:
+
+| Code | Description |
+|------|-------------|
+| 200 | Success |
+| 202 | Accepted - Request accepted but processing not completed |
+| 204 | No Content |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 405 | Method Not Allowed |
+| 500 | Internal Server Error |
+| 501 | Not Implemented |
+| 503 | Service Unavailable |
+
+## Error Responses
+
+All error responses follow the same format:
+
+```json
+{
+  "type": "string",
+  "title": "string",
+  "detail": "string",
+  "instance": "string",
+  "status": "number"
+}
+```
+
+## Pagination
+
+Some endpoints support pagination using cursor-based pagination. The response will include an `X-Next-Cursor` header when more results are available. Use this cursor in the next request to fetch the next page of results.
+
+## Rate Limiting
+
+The API implements rate limiting to ensure fair usage. Rate limit headers are included in all responses:
+
+| Header | Description |
+|--------|-------------|
+| X-RateLimit-Limit | Maximum number of requests per time window |
+| X-RateLimit-Remaining | Number of requests remaining in the current time window |
+| X-RateLimit-Reset | Time when the rate limit will reset | 

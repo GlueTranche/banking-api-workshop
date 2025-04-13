@@ -1,0 +1,156 @@
+---
+id: get-account-standing-orders
+title: "Get Account Standing Orders"
+description: "Retrieve standing orders for a specific account"
+sidebar_label: "Get Account Standing Orders"
+hide_title: true
+hide_table_of_contents: true
+---
+
+# Get Account Standing Orders
+
+<div className="api-method get">
+  <div className="api-method__header">
+    <span className="api-method__verb">GET</span>
+    <span className="api-method__path">/accounts/\{accountId\}/standing-orders</span>
+  </div>
+</div>
+
+Returns the standing orders of the specified account.
+
+## Path Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| accountId | string | true | ID of the account. |
+
+## Headers
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| Authorization | string | true | Bearer followed by a base64 encoded OAuth access token. |
+| X-CorAPI-Client-ID | string | true | ID of the client forwarded to the provider (SCOPE: FI). |
+| X-Correlation-ID | string | true | Unique ID (defined by the caller) which will be reflected back in the response. |
+| User-Agent | string | true | Name and version of the of the Client software. |
+| X-CorAPI-Target-ID | string | false | ID of the target, e.g., a financial institution (SCOPE: FI - optional). |
+| X-PSU-IP-Address | string | false | IP address of the user initiating the operation (SCOPE: FI - optional). |
+| X-PSU-User-Agent | string | false | User of the client software (SCOPE: FI - optional). |
+
+## Response
+
+### 200 OK
+
+Returns the standing orders of the specified account.
+
+```json
+{
+  "standingOrders": [
+    {
+      "standingOrderId": "SO-2024-001",
+      "frequency": "MONTHLY",
+      "reference": "Rent Payment",
+      "firstPaymentDate": "2024-01-01",
+      "nextPaymentDate": "2024-04-01",
+      "lastPaymentDate": "2024-12-01",
+      "finalPaymentDate": "2024-12-01",
+      "standingOrderAmount": {
+        "amount": "2500.00",
+        "currency": "CHF"
+      },
+      "creditorAccount": {
+        "identification": "CH93 0076 2011 6238 5295 9",
+        "type": "IBAN"
+      },
+      "creditorAgent": {
+        "bic": "ZKBKCHZZ80A",
+        "clearingSystemMemberIdentification": {
+          "code": "CHBCC",
+          "memberId": "0076"
+        }
+      },
+      "creditorName": "Immobilien AG Zürich",
+      "creditorAddress": {
+        "structured": {
+          "postCode": "8001",
+          "streetName": "Bahnhofstrasse",
+          "townName": "Zürich",
+          "buildingNumber": "1",
+          "country": "CH"
+        }
+      },
+      "purpose": "Monthly rent payment",
+      "category": "RENT",
+      "status": "ACTIVE"
+    },
+    {
+      "standingOrderId": "SO-2024-002",
+      "frequency": "QUARTERLY",
+      "reference": "Insurance Premium",
+      "firstPaymentDate": "2024-01-01",
+      "nextPaymentDate": "2024-04-01",
+      "lastPaymentDate": "2024-12-31",
+      "finalPaymentDate": "2024-12-31",
+      "standingOrderAmount": {
+        "amount": "450.00",
+        "currency": "CHF"
+      },
+      "creditorAccount": {
+        "identification": "CH93 0076 2011 6238 5295 8",
+        "type": "IBAN"
+      },
+      "creditorAgent": {
+        "bic": "ZKBKCHZZ80A",
+        "clearingSystemMemberIdentification": {
+          "code": "CHBCC",
+          "memberId": "0076"
+        }
+      },
+      "creditorName": "Swiss Insurance AG",
+      "creditorAddress": {
+        "structured": {
+          "postCode": "8001",
+          "streetName": "General-Guisan-Quai",
+          "townName": "Zürich",
+          "buildingNumber": "38",
+          "country": "CH"
+        }
+      },
+      "purpose": "Quarterly health insurance premium",
+      "category": "INSURANCE",
+      "status": "ACTIVE"
+    }
+  ]
+}
+```
+
+### 400 Bad Request
+
+The format of the request was invalid.
+
+### 401 Unauthorized
+
+The request has not been applied because it provides no valid authentication credentials for the target resource.
+
+### 403 Forbidden
+
+A valid OAuth Token was received, but access was denied.
+
+### 404 Not Found
+
+Either the endpoint does not exist or a requested resource is not yet available.
+
+### 405 Method Not Allowed
+
+The method received in the request-line is known by the origin server but not supported by the target resource.
+
+### 500 Internal Server Error
+
+The server encountered an unexpected condition that prevented it from fulfilling the request.
+
+### 501 Not Implemented
+
+The server does not support the functionality required to fulfill the request.
+
+### 503 Service Unavailable
+
+The server is currently unable to handle the request due to a temporary overload or scheduled maintenance. 
