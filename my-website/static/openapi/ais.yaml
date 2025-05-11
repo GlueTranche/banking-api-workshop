@@ -22,7 +22,29 @@ components:
       type: apiKey
       in: header
       name: X-API-Key
+      description: API Key for authentication. This key must be included in all API requests.
+  parameters:
+    X-API-Key:
+      name: X-API-Key
+      in: header
+      required: true
+      schema:
+        type: string
       description: API Key for authentication
+    X-Correlation-ID:
+      name: X-Correlation-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique ID (defined by the caller) which will be reflected back in the response
+    User-Agent:
+      name: User-Agent
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Name and version of the client software
 externalDocs:
   description: Find out more about SFTI API specifications.
   url: https://www.common-api.ch
@@ -37,6 +59,10 @@ paths:
       summary: Get Accounts
       description: Retrieve a list of all available accounts.
       operationId: getAccounts
+      parameters:
+        - $ref: '#/components/parameters/X-API-Key'
+        - $ref: '#/components/parameters/X-Correlation-ID'
+        - $ref: '#/components/parameters/User-Agent'
       responses:
         '200':
           description: Successful response
@@ -56,6 +82,10 @@ paths:
                           type: string
                         currency:
                           type: string
+        '401':
+          description: Unauthorized - Invalid or missing API key
+        '403':
+          description: Forbidden - API key is valid but does not have sufficient permissions
   /accounts/{accountId}:
     get:
       tags:
