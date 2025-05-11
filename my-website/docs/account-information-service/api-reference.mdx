@@ -28,15 +28,11 @@ account.common-api.ch/api/v5
 
 All requests must include the following headers:
 
-| Header | Description | Required |
-|--------|-------------|----------|
-| Authorization | Bearer token for OAuth2 authentication | Yes |
-| X-CorAPI-Client-ID | ID of the client forwarded to the provider | Yes |
-| X-Correlation-ID | Unique ID for request correlation | Yes |
-| User-Agent | Name and version of the client software | Yes |
-| X-CorAPI-Target-ID | ID of the target financial institution | No |
-| X-PSU-IP-Address | IP address of the user | No |
-| X-PSU-User-Agent | User agent of the client software | No |
+| Header         | Description                                 | Required |
+|---------------|---------------------------------------------|----------|
+| X-API-Key     | API Key for authentication                  | Yes      |
+| X-Correlation-ID | Unique ID for request correlation         | Yes      |
+| User-Agent    | Name and version of the client software     | Yes      |
 
 ## Endpoints
 
